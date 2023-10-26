@@ -41,3 +41,37 @@ print(dist_list)
 
 # Lista o mais proximo
 print(min(dist_list, key=lambda x: x[1]))
+
+#Join de conjuntos de dados espaciais e não espaciais
+#Digamos que o cap tenha acento preferencial "1"
+
+cabs_list = [
+    ('cab_14',1),
+    ('cab_79',0),
+    ('cab_104',0),
+    ('cab_45',1),
+    ('cab_26',0),
+    ('cab_112',1)
+]
+
+df_cabs = pd.DataFrame(cabs_list, columns=['cab', 'seat'])
+df_dist = pd.DataFrame(dist_list, columns=['cab', 'dist'])
+
+#Merge com base na coluna cab:
+
+df = pd.merge(df_cabs, df_dist, on='cab', how='inner')
+ 
+print(df)
+
+#Filtramos deixando apenas as linhas que seat = 1
+
+result_list = list(df.itertuples(index=False,name=None))
+result_list = [x for x in result_list if x[1] ==1]
+
+print(min(result_list, key=lambda x: x[2]))
+
+
+
+
+
+
